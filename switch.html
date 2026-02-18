@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie Ticket Checker</title>
+	<meta charset="UTF-8">
+
+</head>
+<body>
+
+<h2>Select Ticket Type</h2>
+<input type="text" id="ticket" placeholder="Enter VIP / Regular / Balcony">
+<button onclick="runProgram()">Check</button>
+
+<h3 id="result"></h3>
+
+<script>
+
+class Movie {
+    constructor(name, price, type) {
+        this.name = name;
+        this.price = price;
+        this.type = type;
+    }
+
+    checkTicket(userChoice) {
+
+        switch (userChoice.toLowerCase()) {
+
+            case "vip":
+                return this.type === "VIP"
+                    ? this.name + " - VIP Ticket ₹" + this.price
+                    : "";
+
+            case "regular":
+                return this.type === "Regular"
+                    ? this.name + " - Regular Ticket ₹" + this.price
+                    : "";
+
+            case "balcony":
+                return this.type === "Balcony"
+                    ? this.name + " - Balcony Ticket ₹" + this.price
+                    : "";
+
+            default:
+                return "Invalid ticket type!";
+        }
+    }
+}
+
+function runProgram() {
+
+    let choice = document.getElementById("ticket").value;
+
+    let movies = [
+        new Movie("Avengers", 500, "VIP"),
+        new Movie("Inception", 300, "Regular"),
+        new Movie("Jawan", 400, "Balcony"),
+        new Movie("KGF", 600, "VIP")
+    ];
+
+    let output = "";
+
+    for (let i = 0; i < movies.length; i++) {
+        let result = movies[i].checkTicket(choice);
+
+        if (result !== "") {
+            output += result + "<br>";
+        }
+    }
+
+    if (output === "") {
+        output = "No movies available for selected ticket type.";
+    }
+
+    document.getElementById("result").innerHTML = output;
+}
+
+</script>
+
+</body>
+</html>
